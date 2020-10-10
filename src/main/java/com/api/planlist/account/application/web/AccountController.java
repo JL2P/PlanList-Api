@@ -20,32 +20,32 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/accounts/")
 public class AccountController {
 
 	private final AccountService accountService;
 	
-	@GetMapping("accounts/")
+	@GetMapping()
 	public List<Account> getAccounts() {
 		return accountService.getAccountList();
 	}
 	
-	@GetMapping("account/{accountId}/")
+	@GetMapping("{accountId}/")
 	public Account getAccount(@PathVariable String accountId) {
 		return accountService.getAccount(accountId);
 	}
 	
-	@PostMapping("account/")
+	@PostMapping("signup/")
 	public Account addAccount(@RequestBody Account account) {
 		return accountService.addAccount(account);
 	}
 	
-	@PutMapping("account/")
+	@PutMapping("edit/")
 	public Account modifyAccount(@RequestBody Account account) {
 		return accountService.modifyAccount(account);
 	}
 	
-	@DeleteMapping("account/{accountId}/")
+	@DeleteMapping("signout/{accountId}/")
 	public void deleteAccount(@PathVariable String accountId) {
 		accountService.deleteAccount(accountId);
 	}

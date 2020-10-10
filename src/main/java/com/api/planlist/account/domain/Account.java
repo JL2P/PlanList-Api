@@ -24,12 +24,12 @@ import lombok.NoArgsConstructor;
 public class Account {
 	
 	@Id
-	@Column(name = "user_id", nullable = false)
+	@Column(name = "account_id", nullable = false, unique = true)
 	private String accountId;
 	private String name;  //실명
 	private String email; // 이메일
 	private String password;
-	private int age;
+	private String birth;
 	private String gender;
 	private String address;
 	private String phone;

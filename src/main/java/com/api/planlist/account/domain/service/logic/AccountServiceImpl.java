@@ -31,7 +31,7 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public Account addAccount(Account account) {
 		accountRepository.save(account);
-		return account;
+		return accountRepository.findById(account.getAccountId()).orElseThrow();
 	}
 	
 	@Override
