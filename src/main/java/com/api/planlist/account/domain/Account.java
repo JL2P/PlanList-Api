@@ -26,8 +26,10 @@ public class Account {
 	@Id
 	@Column(name = "account_id", nullable = false, unique = true)
 	private String accountId;
-	private String name;  //실명
-	private String email; // 이메일
+	private String name;  //�떎紐�
+	
+	@Column(unique = true)
+	private String email; // �씠硫붿씪
 	private String password;
 	private String birth;
 	private String gender;
