@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.api.planlist.account.domain.Account;
 import com.api.planlist.account.domain.service.AccountService;
@@ -52,7 +53,11 @@ public class AccountController {
 	//로그인
 	@PostMapping("signin/")
 	public Account signinAccount(@RequestBody Account account){
-		System.out.println("account : " + account);
 		return accountService.signinAccount(account);
+	}
+	//auth
+	@PostMapping("auth/")
+	public Account auth(@RequestBody Account account) {
+		return accountService.auth(account);
 	}
 }

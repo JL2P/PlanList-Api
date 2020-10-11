@@ -15,5 +15,7 @@ public interface AccountService {
 	public void deleteAccount(String accountId);
 	//로그인
 	public Account signinAccount(Account account);
+	//auth
+	public Account auth(Account account);
 	
 }
