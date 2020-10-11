@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.planlist.account.domain.Account;
+import com.api.planlist.account.domain.service.AccountService;
+import com.api.planlist.todo.application.dto.TodoDTO;
 import com.api.planlist.todo.domain.Todo;
 import com.api.planlist.todo.domain.service.TodoService;
 
@@ -24,6 +26,8 @@ public class TodoRestController {
 	
 	private final TodoService todoService;
 	
+	private final AccountService accountService;
+	
 	@GetMapping()
 	public List<Todo> getTodos() {
 		return todoService.getTodos();
@@ -34,14 +38,21 @@ public class TodoRestController {
 		return todoService.getTodo(todoId);
 	}
 	
+
 	@PostMapping()
-	public Todo addTodo(@RequestBody Todo todo ,@RequestBody  Account account) {
-		todo.setAccount(account);
-		System.out.println(todo.getTitle());
-		System.out.println(account.getAccountId());
+	public Todo addTodo(@RequestBody TodoDTO todoDto) {
 		
-		return todoService.addTodo(todo);
-	}
+		// Account Id 가지고옴
+		String AccountId = todoDto.getAccountId();
+		// Account 객체 가지고옴
+		Account account = accountService.getAccount(AccountId);
+		// todoDTO를 Todo객체로 변환
+		Todo newTodo = todoDto.toDomain();
+		// Todo객체 안에 아까 가져온 Account넣어줌
+		newTodo.setAccount(account);
+		// 완성된 Todo 저장
+		return todoService.addTodo(newTodo);
+	}	
 	
 	@PutMapping()
 	public Todo modifyTodo(@RequestBody Todo todo) {
