@@ -47,8 +47,12 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public Account signinAccount(Account account) {
-		System.out.println("account : " + account);
 		return accountRepository.signin(account.getEmail(), account.getPassword());
+	}
+
+	@Override
+	public Account auth(Account account) {
+		return accountRepository.auth(account.getEmail());
 	}
 		
 }
