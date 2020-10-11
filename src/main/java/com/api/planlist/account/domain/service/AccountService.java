@@ -13,5 +13,7 @@ public interface AccountService {
 	public Account addAccount(Account account);
 	public Account modifyAccount(Account account);
 	public void deleteAccount(String accountId);
+	//로그인
+	public Account signinAccount(Account account);
 	
 }
