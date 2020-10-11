@@ -12,11 +12,13 @@ import javax.persistence.Table;
 import com.api.planlist.account.domain.Account;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Setter
 @Entity
 @Table(name="todos")
@@ -27,8 +29,8 @@ public class Todo {
 	
 	private String title;
 	private String description;
-	private String start_time;
-	private String end_time;
+	private String startTime;
+	private String endTime;
 	private String completed;
 	private String openAt;
 	
