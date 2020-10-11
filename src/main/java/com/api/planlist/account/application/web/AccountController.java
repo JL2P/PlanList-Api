@@ -49,5 +49,10 @@ public class AccountController {
 	public void deleteAccount(@PathVariable String accountId) {
 		accountService.deleteAccount(accountId);
 	}
-	
+	//로그인
+	@PostMapping("signin/")
+	public Account signinAccount(@RequestBody Account account){
+		System.out.println("account : " + account);
+		return accountService.signinAccount(account);
+	}
 }

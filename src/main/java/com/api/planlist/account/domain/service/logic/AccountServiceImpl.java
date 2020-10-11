@@ -44,5 +44,11 @@ public class AccountServiceImpl implements AccountService{
 	public void deleteAccount(String accountId) {
 		accountRepository.deleteById(accountId);
 	}
+
+	@Override
+	public Account signinAccount(Account account) {
+		System.out.println("account : " + account);
+		return accountRepository.signin(account.getEmail(), account.getPassword());
+	}
 		
 }
