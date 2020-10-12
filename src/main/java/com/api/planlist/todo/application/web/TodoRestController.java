@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.planlist.account.application.dto.AccountDto;
 import com.api.planlist.account.domain.Account;
 import com.api.planlist.account.domain.service.AccountService;
+import com.api.planlist.common.model.response.CommonResult;
 import com.api.planlist.common.model.response.ListResult;
+import com.api.planlist.common.model.response.SingleResult;
 import com.api.planlist.common.model.service.ResponseService;
+import com.api.planlist.todo.application.dto.TodoAddDto;
 import com.api.planlist.todo.application.dto.TodoDetailDto;
 import com.api.planlist.todo.application.dto.TodoDto;
 import com.api.planlist.todo.domain.Todo;
@@ -49,7 +52,7 @@ public class TodoRestController {
 	
 	@ApiOperation(value="TODO 디테일 정보 조회", notes="todoId값을 이용하여 조회한다.")
 	@GetMapping("{todoId}/")
-	public String getTodo(@PathVariable Long todoId) {
+	public SingleResult<TodoDetailDto> getTodo(@PathVariable Long todoId) {
 		
 		Todo todo = todoService.getTodo(todoId);
 		TodoDetailDto todoDetailDto = new TodoDetailDto(todo);
@@ -58,8 +61,19 @@ public class TodoRestController {
 		AccountDto accountDto = new AccountDto(account);
 		todoDetailDto.setAccount(accountDto);
 		
-		return todoDetailDto.toString();
+		return responseService.getSingleResult(todoDetailDto);
+		
 	}
+	
+	
+	@ApiOperation(value="TODO 추가 테스트", notes="TodoAddDto타입을 이용하여 데이터를 받아 저장한다.")
+	@PostMapping("test/")
+	public SingleResult<TodoAddDto> addTodoTest(@RequestBody TodoAddDto todoAddDto) {
+		
+		Todo newTodo = todoAddDto.toDomain();
+		newTodo.setAccount(accountService.getAccount(todoAddDto.getAccountId()));
+		return responseService.getSingleResult(new TodoAddDto(todoService.addTodo(newTodo)));
+	}	
 	
 	
 	@ApiOperation(value="TODO 추가", notes="TodoDTO타입을 이용하여 데이터를 받아온다.")
@@ -80,14 +94,16 @@ public class TodoRestController {
 	
 	@ApiOperation(value="TODO 수정", notes="작성되어있는 TODO를 수정한다.")
 	@PutMapping()
-	public Todo modifyTodo(@RequestBody Todo todo) {
-		return todoService.modifyTodo(todo);
+	public SingleResult<TodoDetailDto> modifyTodo(@RequestBody Todo todo) {
+		 return responseService.getSingleResult(new TodoDetailDto(todoService.modifyTodo(todo)));
 	}
 	
 	@ApiOperation(value="TODO 삭제", notes="TODO를 삭제한다.")
 	@DeleteMapping("{todoId}/")
-	public void deleteTodo(@PathVariable Long todoId) {
+	public CommonResult deleteTodo(@PathVariable Long todoId) {
 		todoService.deleteTodo(todoId);
+		
+		return responseService.getSuccessResult();
 	}
 	
 }
