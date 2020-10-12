@@ -39,7 +39,7 @@ public class TodoRestController {
 	
 	private final ResponseService responseService;
 	
-	@ApiOperation(value="TODO ¸®½ºÆ® Á¶È¸", notes="¸ğµç TODO¸¦ Á¶È¸ÇÑ´Ù.")
+	@ApiOperation(value="TODO ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ", notes="ëª¨ë“  TODOë¥¼ ì¡°íšŒí•œë‹¤.")
 	@GetMapping()
 	public ListResult<Todo> getTodos() {
 		List<Todo> todos = todoService.getTodos();
@@ -47,7 +47,7 @@ public class TodoRestController {
 		return responseService.getListResult(todoService.getTodos());
 	}
 	
-	@ApiOperation(value="TODO µğÅ×ÀÏ Á¤º¸ Á¶È¸", notes="todoId°ªÀ» ÀÌ¿ëÇÏ¿© Á¶È¸ÇÑ´Ù.")
+	@ApiOperation(value="TODO ë””í…Œì¼ ì •ë³´ ì¡°íšŒ", notes="todoIdê°’ì„ ì´ìš©í•˜ì—¬ ì¡°íšŒí•œë‹¤.")
 	@GetMapping("{todoId}/")
 	public String getTodo(@PathVariable Long todoId) {
 		
@@ -62,29 +62,29 @@ public class TodoRestController {
 	}
 	
 	
-	@ApiOperation(value="TODO Ãß°¡", notes="TodoDTOÅ¸ÀÔÀ» ÀÌ¿ëÇÏ¿© µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¿Â´Ù.")
+	@ApiOperation(value="TODO ì¶”ê°€", notes="TodoDTOíƒ€ì…ì„ ì´ìš©í•˜ì—¬ ë°ì´í„°ë¥¼ ë°›ì•„ì˜¨ë‹¤.")
 	@PostMapping()
 	public Todo addTodo(@RequestBody TodoDto todoDto) {
 		
-		// Account Id °¡Áö°í¿È
+		// Account Id ê°€ì§€ê³ ì˜´
 		String AccountId = todoDto.getAccountId();
-		// Account °´Ã¼ °¡Áö°í¿È
+		// Account ê°ì²´ ê°€ì§€ê³ ì˜´
 		Account account = accountService.getAccount(AccountId);
-		// todoDTO¸¦ Todo°´Ã¼·Î º¯È¯
+		// todoDTOë¥¼ Todoê°ì²´ë¡œ ë³€í™˜
 		Todo newTodo = todoDto.toDomain();
-		// Todo°´Ã¼ ¾È¿¡ ¾Æ±î °¡Á®¿Â Account³Ö¾îÁÜ
+		// Todoê°ì²´ ì•ˆì— ì•„ê¹Œ ê°€ì ¸ì˜¨ Accountë„£ì–´ì¤Œ
 		newTodo.setAccount(account);
-		// ¿Ï¼ºµÈ Todo ÀúÀå
+		// ì™„ì„±ëœ Todo ì €ì¥
 		return todoService.addTodo(newTodo);
 	}	
 	
-	@ApiOperation(value="TODO ¼öÁ¤", notes="ÀÛ¼ºµÇ¾îÀÖ´Â TODO¸¦ ¼öÁ¤ÇÑ´Ù.")
+	@ApiOperation(value="TODO ìˆ˜ì •", notes="ì‘ì„±ë˜ì–´ìˆëŠ” TODOë¥¼ ìˆ˜ì •í•œë‹¤.")
 	@PutMapping()
 	public Todo modifyTodo(@RequestBody Todo todo) {
 		return todoService.modifyTodo(todo);
 	}
 	
-	@ApiOperation(value="TODO »èÁ¦", notes="TODO¸¦ »èÁ¦ÇÑ´Ù.")
+	@ApiOperation(value="TODO ì‚­ì œ", notes="TODOë¥¼ ì‚­ì œí•œë‹¤.")
 	@DeleteMapping("{todoId}/")
 	public void deleteTodo(@PathVariable Long todoId) {
 		todoService.deleteTodo(todoId);

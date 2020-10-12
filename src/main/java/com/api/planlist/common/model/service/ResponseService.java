@@ -8,13 +8,13 @@ import com.api.planlist.common.model.response.CommonResult;
 import com.api.planlist.common.model.response.ListResult;
 import com.api.planlist.common.model.response.SingleResult;
 
-@Service // ÇØ´ç Class°¡ ServiceÀÓÀ» ¸í½ÃÇÕ´Ï´Ù.
+@Service // í•´ë‹¹ Classê°€ Serviceì„ì„ ëª…ì‹œí•©ë‹ˆë‹¤.
 public class ResponseService {
 
-    // enumÀ¸·Î api ¿äÃ» °á°ú¿¡ ´ëÇÑ code, message¸¦ Á¤ÀÇÇÕ´Ï´Ù.
+    // enumìœ¼ë¡œ api ìš”ì²­ ê²°ê³¼ì— ëŒ€í•œ code, messageë¥¼ ì •ì˜í•©ë‹ˆë‹¤.
     public enum CommonResponse {
-        SUCCESS(0, "¼º°øÇÏ¿´½À´Ïµğ."),
-        FAIL(-1, "½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+        SUCCESS(0, "ì„±ê³µí•˜ì˜€ìŠµë‹ˆë””."),
+        FAIL(-1, "ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 
         int code;
         String msg;
@@ -32,27 +32,27 @@ public class ResponseService {
             return msg;
         }
     }
-    // ´ÜÀÏ°Ç °á°ú¸¦ Ã³¸®ÇÏ´Â ¸Ş¼Òµå
+    // ë‹¨ì¼ê±´ ê²°ê³¼ë¥¼ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ
     public <T> SingleResult<T> getSingleResult(T data) {
         SingleResult<T> result = new SingleResult<>();
         result.setData(data);
         setSuccessResult(result);
         return result;
     }
-    // ´ÙÁß°Ç °á°ú¸¦ Ã³¸®ÇÏ´Â ¸Ş¼Òµå
+    // ë‹¤ì¤‘ê±´ ê²°ê³¼ë¥¼ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ
     public <T> ListResult<T> getListResult(List<T> list) {
         ListResult<T> result = new ListResult<>();
         result.setList(list);
         setSuccessResult(result);
         return result;
     }
-    // ¼º°ø °á°ú¸¸ Ã³¸®ÇÏ´Â ¸Ş¼Òµå
+    // ì„±ê³µ ê²°ê³¼ë§Œ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ
     public CommonResult getSuccessResult() {
         CommonResult result = new CommonResult();
         setSuccessResult(result);
         return result;
     }
-    // ½ÇÆĞ °á°ú¸¸ Ã³¸®ÇÏ´Â ¸Ş¼Òµå
+    // ì‹¤íŒ¨ ê²°ê³¼ë§Œ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ
     public CommonResult getFailResult() {
         CommonResult result = new CommonResult();
         result.setSuccess(false);
@@ -60,7 +60,7 @@ public class ResponseService {
         result.setMsg(CommonResponse.FAIL.getMsg());
         return result;
     }
-    // °á°ú ¸ğµ¨¿¡ api ¿äÃ» ¼º°ø µ¥ÀÌÅÍ¸¦ ¼¼ÆÃÇØÁÖ´Â ¸Ş¼Òµå
+    // ê²°ê³¼ ëª¨ë¸ì— api ìš”ì²­ ì„±ê³µ ë°ì´í„°ë¥¼ ì„¸íŒ…í•´ì£¼ëŠ” ë©”ì†Œë“œ
     private void setSuccessResult(CommonResult result) {
         result.setSuccess(true);
         result.setCode(CommonResponse.SUCCESS.getCode());

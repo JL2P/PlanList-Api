@@ -8,12 +8,12 @@ import lombok.Setter;
 @Setter
 public class CommonResult {
 	
-    @ApiModelProperty(value = "ÀÀ´ä ¼º°ø¿©ºÎ : true/false")
+    @ApiModelProperty(value = "ì‘ë‹µ ì„±ê³µì—¬ë¶€ : true/false")
     private boolean success;
     
-    @ApiModelProperty(value = "ÀÀ´ä ÄÚµå ¹øÈ£ : >= 0 Á¤»ó, < 0 ºñÁ¤»ó")
+    @ApiModelProperty(value = "ì‘ë‹µ ì½”ë“œ ë²ˆí˜¸ : >= 0 ì •ìƒ, < 0 ë¹„ì •ìƒ")
     private int code;
 
-    @ApiModelProperty(value = "ÀÀ´ä ¸Þ½ÃÁö")
+    @ApiModelProperty(value = "ì‘ë‹µ ë©”ì‹œì§€")
     private String msg;
 }
