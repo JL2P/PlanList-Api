@@ -1,5 +1,7 @@
 package com.api.planlist.account.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.api.planlist.todo.domain.Todo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,8 +46,8 @@ public class Account {
 	private String usedAt;
 	private String displayAt;
 	
-	
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<Todo> todos;
+//	@JsonManagedReference
+    private List<Todo> todos= new ArrayList<Todo>();
 
 }
