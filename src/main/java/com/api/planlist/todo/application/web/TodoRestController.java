@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.planlist.account.application.dto.AccountDto;
 import com.api.planlist.account.domain.Account;
 import com.api.planlist.account.domain.service.AccountService;
+import com.api.planlist.common.model.response.CommonResult;
 import com.api.planlist.common.model.response.ListResult;
+import com.api.planlist.common.model.response.SingleResult;
 import com.api.planlist.common.model.service.ResponseService;
+import com.api.planlist.todo.application.dto.TodoAddDto;
 import com.api.planlist.todo.application.dto.TodoDetailDto;
 import com.api.planlist.todo.application.dto.TodoDto;
 import com.api.planlist.todo.domain.Todo;
@@ -39,7 +42,7 @@ public class TodoRestController {
 	
 	private final ResponseService responseService;
 	
-	@ApiOperation(value="TODO ¸®½ºÆ® Á¶È¸", notes="¸ğµç TODO¸¦ Á¶È¸ÇÑ´Ù.")
+	@ApiOperation(value="TODO ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ", notes="ëª¨ë“  TODOë¥¼ ì¡°íšŒí•œë‹¤.")
 	@GetMapping()
 	public ListResult<Todo> getTodos() {
 		List<Todo> todos = todoService.getTodos();
@@ -47,9 +50,9 @@ public class TodoRestController {
 		return responseService.getListResult(todoService.getTodos());
 	}
 	
-	@ApiOperation(value="TODO µğÅ×ÀÏ Á¤º¸ Á¶È¸", notes="todoId°ªÀ» ÀÌ¿ëÇÏ¿© Á¶È¸ÇÑ´Ù.")
+	@ApiOperation(value="TODO ë””í…Œì¼ ì •ë³´ ì¡°íšŒ", notes="todoIdê°’ì„ ì´ìš©í•˜ì—¬ ì¡°íšŒí•œë‹¤.")
 	@GetMapping("{todoId}/")
-	public String getTodo(@PathVariable Long todoId) {
+	public SingleResult<TodoDetailDto> getTodo(@PathVariable Long todoId) {
 		
 		Todo todo = todoService.getTodo(todoId);
 		TodoDetailDto todoDetailDto = new TodoDetailDto(todo);
@@ -58,36 +61,49 @@ public class TodoRestController {
 		AccountDto accountDto = new AccountDto(account);
 		todoDetailDto.setAccount(accountDto);
 		
-		return todoDetailDto.toString();
+		return responseService.getSingleResult(todoDetailDto);
+		
 	}
 	
 	
-	@ApiOperation(value="TODO Ãß°¡", notes="TodoDTOÅ¸ÀÔÀ» ÀÌ¿ëÇÏ¿© µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¿Â´Ù.")
+	@ApiOperation(value="TODO ì¶”ê°€ í…ŒìŠ¤íŠ¸", notes="TodoAddDtoíƒ€ì…ì„ ì´ìš©í•˜ì—¬ ë°ì´í„°ë¥¼ ë°›ì•„ ì €ì¥í•œë‹¤.")
+	@PostMapping("test/")
+	public SingleResult<TodoAddDto> addTodoTest(@RequestBody TodoAddDto todoAddDto) {
+		
+		Todo newTodo = todoAddDto.toDomain();
+		newTodo.setAccount(accountService.getAccount(todoAddDto.getAccountId()));
+		return responseService.getSingleResult(new TodoAddDto(todoService.addTodo(newTodo)));
+	}	
+	
+	
+	@ApiOperation(value="TODO ì¶”ê°€", notes="TodoDTOíƒ€ì…ì„ ì´ìš©í•˜ì—¬ ë°ì´í„°ë¥¼ ë°›ì•„ì˜¨ë‹¤.")
 	@PostMapping()
 	public Todo addTodo(@RequestBody TodoDto todoDto) {
 		
-		// Account Id °¡Áö°í¿È
+		// Account Id ê°€ì§€ê³ ì˜´
 		String AccountId = todoDto.getAccountId();
-		// Account °´Ã¼ °¡Áö°í¿È
+		// Account ê°ì²´ ê°€ì§€ê³ ì˜´
 		Account account = accountService.getAccount(AccountId);
-		// todoDTO¸¦ Todo°´Ã¼·Î º¯È¯
+		// todoDTOë¥¼ Todoê°ì²´ë¡œ ë³€í™˜
 		Todo newTodo = todoDto.toDomain();
-		// Todo°´Ã¼ ¾È¿¡ ¾Æ±î °¡Á®¿Â Account³Ö¾îÁÜ
+		// Todoê°ì²´ ì•ˆì— ì•„ê¹Œ ê°€ì ¸ì˜¨ Accountë„£ì–´ì¤Œ
 		newTodo.setAccount(account);
-		// ¿Ï¼ºµÈ Todo ÀúÀå
+		// ì™„ì„±ëœ Todo ì €ì¥
 		return todoService.addTodo(newTodo);
 	}	
 	
-	@ApiOperation(value="TODO ¼öÁ¤", notes="ÀÛ¼ºµÇ¾îÀÖ´Â TODO¸¦ ¼öÁ¤ÇÑ´Ù.")
+	@ApiOperation(value="TODO ìˆ˜ì •", notes="ì‘ì„±ë˜ì–´ìˆëŠ” TODOë¥¼ ìˆ˜ì •í•œë‹¤.")
 	@PutMapping()
-	public Todo modifyTodo(@RequestBody Todo todo) {
-		return todoService.modifyTodo(todo);
+	public SingleResult<TodoDetailDto> modifyTodo(@RequestBody Todo todo) {
+		 return responseService.getSingleResult(new TodoDetailDto(todoService.modifyTodo(todo)));
 	}
 	
-	@ApiOperation(value="TODO »èÁ¦", notes="TODO¸¦ »èÁ¦ÇÑ´Ù.")
+	@ApiOperation(value="TODO ì‚­ì œ", notes="TODOë¥¼ ì‚­ì œí•œë‹¤.")
 	@DeleteMapping("{todoId}/")
-	public void deleteTodo(@PathVariable Long todoId) {
+	public CommonResult deleteTodo(@PathVariable Long todoId) {
 		todoService.deleteTodo(todoId);
+		
+		return responseService.getSuccessResult();
 	}
 	
 }

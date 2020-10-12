@@ -14,9 +14,9 @@ import lombok.Getter;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class CommonDateEntity { // ³¯Â¥ ÇÊµå »ó¼Ó Ã³¸®
-    @CreatedDate // Entity »ı¼º½Ã ÀÚµ¿À¸·Î ³¯Â¥¼¼ÆÃ
+public abstract class CommonDateEntity { // ë‚ ì§œ í•„ë“œ ìƒì† ì²˜ë¦¬
+    @CreatedDate // Entity ìƒì„±ì‹œ ìë™ìœ¼ë¡œ ë‚ ì§œì„¸íŒ…
     private LocalDateTime created;
-    @LastModifiedDate // Entity ¼öÁ¤½Ã ÀÚµ¿À¸·Î ³¯Â¥¼¼ÆÃ
+    @LastModifiedDate // Entity ìˆ˜ì •ì‹œ ìë™ìœ¼ë¡œ ë‚ ì§œì„¸íŒ…
     private LocalDateTime modified;
 }
