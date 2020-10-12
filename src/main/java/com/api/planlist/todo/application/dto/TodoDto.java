@@ -5,12 +5,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import org.springframework.beans.BeanUtils;
-
-import com.api.planlist.account.domain.Account;
 import com.api.planlist.todo.domain.Todo;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TodoDTO {
+public class TodoDto {
 	
 	private String accountId;
 	

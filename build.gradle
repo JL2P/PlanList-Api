@@ -41,6 +41,8 @@ dependencies {
 	//블로그에서 2.6.1버전을 추천하더라
 	implementation 'io.springfox:springfox-swagger2:2.6.1'
 	implementation 'io.springfox:springfox-swagger-ui:2.6.1'
+	//gson
+	implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 test {
