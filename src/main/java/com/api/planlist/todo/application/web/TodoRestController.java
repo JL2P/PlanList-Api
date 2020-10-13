@@ -1,9 +1,11 @@
 package com.api.planlist.todo.application.web;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import com.api.planlist.common.model.ErrorMessage;
+import com.api.planlist.common.model.exception.CommonCustomException;
 import com.api.planlist.todo.application.dto.TodoModifyDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +40,7 @@ public class TodoRestController {
 	
 	@ApiOperation(value="TODO 리스트 조회", notes="모든 TODO를 조회한다.")
 	@GetMapping()
-	public List<TodoDto> getTodos() {
+	public List<TodoDto> getTodos() throws NoSuchElementException {
 		List<Todo> todos = todoService.getTodos();
 		// 가지고온 TodoList를 TodoDto리스트로 변환한다.
 		return todos.stream().map(todo->new TodoDto(todo)).collect(Collectors.toList());
@@ -46,7 +48,7 @@ public class TodoRestController {
 	
 	@ApiOperation(value="TODO 디테일 정보 조회", notes="todoId값을 이용하여 조회한다.")
 	@GetMapping("{todoId}/")
-	public TodoDetailDto getTodo(@PathVariable Long todoId) {
+	public TodoDetailDto getTodo(@PathVariable Long todoId)throws NoSuchElementException {
 		//Todo 객체를 가지고온다
 		Todo todo = todoService.getTodo(todoId);
 		//Todo 객체를 TodoDto객체로 변환한다.
@@ -62,7 +64,7 @@ public class TodoRestController {
 
 	@ApiOperation(value="TODO 추가", notes="TodoDTO타입을 이용하여 데이터를 받아온다.")
 	@PostMapping()
-	public TodoAddDto addTodo(@RequestBody TodoAddDto todoAddDto) {
+	public TodoAddDto addTodo(@RequestBody TodoAddDto todoAddDto) throws CommonCustomException {
 		//todoDto를 받아 todo 객체로 변환한다.
 		Todo newTodo = todoAddDto.toDomain();
 		//todo를 저장하려면 Account객체가 필요하다
@@ -74,7 +76,7 @@ public class TodoRestController {
 	
 	@ApiOperation(value="TODO 수정", notes="작성되어있는 TODO를 수정한다.")
 	@PutMapping()
-	public TodoDto modifyTodo(@RequestBody TodoModifyDto todoModifyDto) {
+	public TodoDto modifyTodo(@RequestBody TodoModifyDto todoModifyDto)throws NoSuchElementException {
 		//Todo객체로 변환한다.
 		Todo todo = todoModifyDto.toDomain();
 		 return new TodoDto(todoService.modifyTodo(todo));
@@ -82,13 +84,13 @@ public class TodoRestController {
 	
 	@ApiOperation(value="TODO 삭제", notes="TODO를 삭제한다.")
 	@DeleteMapping("{todoId}/")
-	public String deleteTodo(@PathVariable Long todoId) {
+	public String deleteTodo(@PathVariable Long todoId) throws NoSuchElementException{
 		todoService.deleteTodo(todoId);
 		return "success";
 	}
 
 	@ExceptionHandler(RuntimeException.class)
-	public @ResponseBody ErrorMessage runTimeError(RuntimeException e) {
+	public @ResponseBody ErrorMessage runTimeError(RuntimeException e) throws NoSuchElementException{
 		ErrorMessage error = new ErrorMessage();
 		error.setMessage(e.getMessage());
 		return error;
