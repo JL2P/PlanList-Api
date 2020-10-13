@@ -20,25 +20,28 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//JPA ÀÇÁ¸¼º Ãß°¡
-	//½ºÇÁ¸µ ºÎÆ®¿ë Spring Data Jpa Ãß»óÈ­ ¶óÀÌºê·¯¸®
-	//½ºÇÁ¸µ ºÎÆ® ¹öÀü¿¡ ¸ÂÃç ÀÚµ¿À¸·Î JPA°ü·Ã ¶óÀÌºê·¯¸®µéÀÇ ¹öÀüÀ» °ü¸®ÇØÁÜ
+	//JPA ì˜ì¡´ì„± ì¶”ê°€
+	//ìŠ¤í”„ë§ ë¶€íŠ¸ìš© Spring Data Jpa ì¶”ìƒí™” ë¼ì´ë¸ŒëŸ¬ë¦¬
+	//ìŠ¤í”„ë§ ë¶€íŠ¸ ë²„ì „ì— ë§ì¶° ìë™ìœ¼ë¡œ JPAê´€ë ¨ ë¼ì´ë¸ŒëŸ¬ë¦¬ë“¤ì˜ ë²„ì „ì„ ê´€ë¦¬í•´ì¤Œ
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.2'
-	// ·Òº¹
-	// ÀÌ°Å Ãß°¡ÇØ¾ß ÇÑ´Ù gradle 5¹öÀüºÎÅÍ´Â..
+	// ë¡¬ë³µ
+	// ì´ê±° ì¶”ê°€í•´ì•¼ í•œë‹¤ gradle 5ë²„ì „ë¶€í„°ëŠ”..
 	annotationProcessor("org.projectlombok:lombok")
 	compileOnly 'org.projectlombok:lombok'
-	// µ¥ºêÅø½º
-	// Å×½ºÆ® È¯°æ¿¡¼­¸¸ ½ÇÇàµÇµµ·Ï
+	// ë°ë¸Œíˆ´ìŠ¤
+	// í…ŒìŠ¤íŠ¸ í™˜ê²½ì—ì„œë§Œ ì‹¤í–‰ë˜ë„ë¡
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	// H2 µğºñ
+	// H2 ë””ë¹„
 	runtimeOnly 'com.h2database:h2'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
-	//½º¿ş°Å Ãß°¡
-	//ºí·Î±×¿¡¼­ 2.6.1¹öÀüÀ» ÃßÃµÇÏ´õ¶ó
+	// ìŠ¤í”„ë§ í…ŒìŠ¤íŠ¸
+	// Junit 5 -> 4ë¡œ ë³€ê²½
+	//	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+	//		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	//	}
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	//ìŠ¤ì›¨ê±° ì¶”ê°€
+	//ë¸”ë¡œê·¸ì—ì„œ 2.6.1ë²„ì „ì„ ì¶”ì²œí•˜ë”ë¼
 	implementation 'io.springfox:springfox-swagger2:2.6.1'
 	implementation 'io.springfox:springfox-swagger-ui:2.6.1'
 	//gson
@@ -46,6 +49,10 @@ dependencies {
 }
 
 test {
-	useJUnitPlatform()
+//	useJUnitPlatform()
+	useJUnitPlatform {
+		includeEngines 'junit-vintage'
+		// excludeEngines 'junit-jupiter'
+	}
 }
 
