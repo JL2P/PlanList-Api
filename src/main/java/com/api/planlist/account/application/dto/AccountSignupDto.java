@@ -12,27 +12,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor //파라미터가 없는 생성자를 생성
 @Getter
 @Setter
-public class AccountDto implements Serializable{
-
+public class AccountSignupDto implements Serializable{
+	
 	private String accountId;
 	private String name;  
 	private String email; 
 	private String password;
 	private String birth;
-	private String gender;
-	private String address;
-	private String phone;
-	private String introduce;
-	private int rating;
-	private String usedAt;
-	private String displayAt;
 	
-	
-	public AccountDto(Account account) {
+	public AccountSignupDto(Account account) {
 		BeanUtils.copyProperties(account, this);
+	}
+	
+	public Account toDomain(){
+		Account account = new Account();
+		BeanUtils.copyProperties(this,account);
+		return account;
+		
 	}
 	
 }
