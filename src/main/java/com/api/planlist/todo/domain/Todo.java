@@ -41,7 +41,8 @@ public class Todo extends CommonDateEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id", nullable = false)
-//	@JsonBackReference
 	private Account account;
+
+
 
 }
