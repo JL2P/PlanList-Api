@@ -15,11 +15,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+*	생성 : 정승훈
+* 	설명 : Todo데이터의 모든 정보를 조회하기 위한 DTO
+* 		  참조하는 Account객체의 데이터까지 가져올 수 있다.
+*/
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class TodoDetailDto implements Serializable {
+
 	private String title;
 	private String description;
 	private String startTime;

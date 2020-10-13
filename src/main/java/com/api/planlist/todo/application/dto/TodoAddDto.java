@@ -14,6 +14,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+/**
+ *	생성 : 정승훈
+ * 	설명 : front에서 Todo를 추가하기 위한 데이터를 받는 객체
+ * 		  Account객체에 대한 정보는 일단 accountId로 받아서
+ * 		  데이터를 받아온 뒤, DB에 요청을 하는식으로 처리한다.
+ */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
