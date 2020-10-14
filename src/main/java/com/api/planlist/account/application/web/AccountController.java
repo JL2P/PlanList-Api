@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.api.planlist.account.application.dto.AccountSigninDto;
 import com.api.planlist.account.application.dto.AccountSignupDto;
 import com.api.planlist.account.domain.Account;
 import com.api.planlist.account.domain.service.AccountService;
@@ -47,9 +48,11 @@ public class AccountController {
 		return accountService.addAccount(newAccount);
 	}
 	
+	@ApiOperation(value = "수정 기능", notes = "로그인 되어 있는 회원 정보를 수정한다.")
 	@PutMapping("edit/")
-	public Account modifyAccount(@RequestBody Account account) {
-		return accountService.modifyAccount(account);
+	public Account modifyAccount(@RequestBody AccountSignupDto accountSignupDto) {
+		Account newModifyAccount = accountSignupDto.toDomain();
+		return accountService.modifyAccount(newModifyAccount);
 	}
 	
 	@DeleteMapping("signout/{accountId}/")
@@ -57,13 +60,17 @@ public class AccountController {
 		accountService.deleteAccount(accountId);
 	}
 	//로그인
+	@ApiOperation(value = "로그인", notes = "회원 로그인.")
 	@PostMapping("signin/")
-	public Account signinAccount(@RequestBody Account account){
-		return accountService.signinAccount(account);
+	public Account signinAccount(@RequestBody AccountSigninDto AccountSigninDto){
+		Account newSigninAccount = AccountSigninDto.toDomain();
+		return accountService.signinAccount(newSigninAccount);
 	}
 	//auth
+	@ApiOperation(value = "내 정보", notes = "로그인 되어 있는 회원 정보를 조회한다.")
 	@PostMapping("auth/")
-	public Account auth(@RequestBody Account account) {
-		return accountService.auth(account);
+	public Account authAccount(@RequestBody AccountSignupDto accountSignupDto) {
+		Account newAuthAccount = accountSignupDto.toDomain();
+		return accountService.authAccount(newAuthAccount);
 	}
 }
