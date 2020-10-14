@@ -51,7 +51,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public Account auth(Account account) {
+	public Account authAccount(Account account) {
 		return accountRepository.auth(account.getEmail());
 	}
 		

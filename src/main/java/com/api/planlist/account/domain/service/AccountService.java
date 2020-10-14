@@ -16,6 +16,6 @@ public interface AccountService {
 	//로그인
 	public Account signinAccount(Account account);
 	//auth
-	public Account auth(Account account);
+	public Account authAccount(Account account);
 	
 }
