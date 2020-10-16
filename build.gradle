@@ -46,6 +46,12 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger-ui:2.6.1'
 	//gson
 	implementation 'com.google.code.gson:gson:2.8.6'
+	//spring security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.10.7'
+	runtime 'io.jsonwebtoken:jjwt-impl:0.10.7'
+	runtime 'io.jsonwebtoken:jjwt-jackson:0.10.7'
 }
 
 test {
