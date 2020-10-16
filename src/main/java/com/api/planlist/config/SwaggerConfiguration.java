@@ -20,12 +20,12 @@ public class SwaggerConfiguration {
                 .apis(RequestHandlerSelectors.basePackage("com.api.planlist"))
                 .paths(PathSelectors.any())
                 .build()
-                .useDefaultResponseMessages(false); // ±âº»À¸·Î ¼¼ÆÃµÇ´Â 200,401,403,404 ¸Ş½ÃÁö¸¦ Ç¥½Ã ÇÏÁö ¾ÊÀ½
+                .useDefaultResponseMessages(false); // ê¸°ë³¸ìœ¼ë¡œ ì„¸íŒ…ë˜ëŠ” 200,401,403,404 ë©”ì‹œì§€ë¥¼ í‘œì‹œ í•˜ì§€ ì•ŠìŒ
     }
 
     private ApiInfo swaggerInfo() {
         return new ApiInfoBuilder().title("Spring API Documentation")
-                .description("¾Û °³¹ß½Ã »ç¿ëµÇ´Â ¼­¹ö API¿¡ ´ëÇÑ ¿¬µ¿ ¹®¼­ÀÔ´Ï´Ù")
+                .description("ì•± ê°œë°œì‹œ ì‚¬ìš©ë˜ëŠ” ì„œë²„ APIì— ëŒ€í•œ ì—°ë™ ë¬¸ì„œì…ë‹ˆë‹¤")
                 .license("happydaddy").licenseUrl("http://daddyprogrammer.org").version("1").build();
     }
 }
