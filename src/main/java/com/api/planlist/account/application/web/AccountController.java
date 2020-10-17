@@ -62,8 +62,8 @@ public class AccountController {
 	//로그인
 	@ApiOperation(value = "로그인", notes = "회원 로그인.")
 	@PostMapping("signin/")
-	public Account signinAccount(@RequestBody AccountSigninDto AccountSigninDto){
-		Account newSigninAccount = AccountSigninDto.toDomain();
+	public Account signinAccount(@RequestBody AccountSigninDto accountSigninDto){
+		Account newSigninAccount = accountSigninDto.toDomain();
 		return accountService.signinAccount(newSigninAccount);
 	}
 	//auth
